@@ -61,7 +61,19 @@ indxB = AssignmentToIndex(assignments(:, mapB), B.card);
 % YOUR CODE HERE:
 % Correctly populate the factor values of C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+for index = 1:prod(C.card)
+    assignment = assignments(index, :);
+    aAssignment = zeros(size(A.var, 1));
+    for i = 1:size(A.var, 2)
+        aAssignment(i) = assignment(1, mapA(i));
+    end
+    bAssignment = zeros(size(B.var, 1));
+    for j = 1:size(B.var, 2)
+        bAssignment(j) = assignment(1, mapB(j));
+    end
+    value = GetValueOfAssignment(A, aAssignment) * GetValueOfAssignment(B, bAssignment);
+    C = SetValueOfAssignment(C, assignment, value);
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 end
