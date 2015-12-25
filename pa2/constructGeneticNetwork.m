@@ -59,6 +59,20 @@ factorList(2*numPeople) = struct('var', [], 'card', [], 'val', []);
 
 numAlleles = length(alleleFreqs); % Number of alleles
 
+for i = 1:numPeople
+    if (pedigree.parents(i, 1) + pedigree.parents(i, 2) == 0) 
+        factorList(i) = genotypeGivenAlleleFreqsFactor(alleleFreqs, i);
+    end
+end
+for i = 1:numPeople
+    if (pedigree.parents(i, 1) + pedigree.parents(i, 2) ~= 0)
+        factorList(i) = genotypeGivenParentsGenotypesFactor(numAlleles, i, pedigree.parents(i, 1), pedigree.parents(i, 2));
+    end
+end
+for i = 1:numPeople
+    factorList(i + numPeople) = phenotypeGivenGenotypeFactor(alphaList, i, i + numPeople);
+end
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %INSERT YOUR CODE HERE
 % Variable numbers:
