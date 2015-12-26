@@ -23,7 +23,12 @@ if (length(allFactors) <= F)
 end
 
 % Your code here:
-factors = allFactors; %%% REMOVE THIS LINE
+for i=1:length(allFactors)
+    biggest(i) = allFactors(i).val(1);
+end
+
+[sortVals, ids] = sort(biggest, 'descend');
+factors = allFactors(ids(1:F));
 
 end
 
